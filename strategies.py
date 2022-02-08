@@ -169,20 +169,24 @@ class Anarchy(ExampleEngine):
 
             # never play rook a4
             if not (board.san(move)[0] == "R" and board.san(move)[-2:] == "a4"):
-
-                # play move
-                board.push(move)
-                # evaluate position
-                evaluation = self.evaluate(board, searchTime)
-                # if the evaluation is better than the current position use it as the new best move
-                if bestEvaluation is None or bestEvaluation > evaluation:
-                    bestEvaluation = evaluation
-                    bestMove = move
-                board.pop()
+                # king stays on e2/e7
+                if not (board.san(move)[0] == "K"):
+                    # play move
+                    board.push(move)
+                    # evaluate position
+                    evaluation = self.evaluate(board, searchTime)
+                    # if the evaluation is better than the current position use it as the new best move
+                    if bestEvaluation is None or bestEvaluation > evaluation:
+                        bestEvaluation = evaluation
+                        bestMove = move
+                    board.pop()
             else:
                 print("I saw Ra4, I just didn't like it")
 
-        return bestMove
+        if bestMove != None:
+            return bestMove
+        else:
+            return random.choice(list(board.legal_moves))
 
     def quit(self):
         self.stockfish.close()
