@@ -3,9 +3,9 @@ url: "https://lichess.org/"  # Lichess base URL.
 
 engine:                      # Engine settings.
   dir: "./engines/"          # Directory containing engines, relative to this project.
-  name: "WorstFish"          # Binary name of the engine to use.
+  name: "Anarchy"          # Binary name of the engine to use.
   protocol: "homemade"            # "uci" or "xboard"
-  ponder: false               # Think on opponent's time.
+  ponder: true               # Think on opponent's time.
   polyglot:
     enabled: false           # Activate polyglot book.
     book:
@@ -19,7 +19,7 @@ engine:                      # Engine settings.
 #     Use the same pattern for 'giveaway' (antichess), 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
     min_weight: 1            # Does not select moves with weight below min_weight (min 0, max: 65535).
     selection: "weighted_random" # Move selection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in the 2nd and 3rd case).
-    max_depth: 8             # Half move max depth.
+    max_depth: 30             # Half move max depth.
 # engine_options:            # Any custom command line params to pass to the engine.
 #   cpuct: 3.1
   homemade_options:
@@ -61,7 +61,7 @@ challenge:                   # Incoming challenges.
   sort_by: "best"            # Possible values: "best" and "first".
   accept_bot: true           # Accepts challenges coming from other bots.
   only_bot: false            # Accept challenges by bots only.
-  max_increment: 15          # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
+  max_increment: 30          # Maximum amount of increment to accept a challenge. The max is 180. Set to 0 for no increment.
   min_increment: 0           # Minimum amount of increment to accept a challenge.
   max_base: 315360000        # Maximum amount of base time to accept a challenge. The max is 315360000 (10 years).
   min_base: 0                # Minimum amount of base time to accept a challenge.
@@ -70,18 +70,18 @@ challenge:                   # Incoming challenges.
     - fromPosition
 #   - antichess
 #   - atomic
-#   - chess960
+    - chess960
 #   - crazyhouse
 #   - horde
 #   - kingOfTheHill
 #   - racingKings
-#   - threeCheck
+    - threeCheck
   time_controls:             # Time controls to accept.
-#   - bullet
+    - bullet
     - blitz
     - rapid
-#   - classical
-#   - correspondence
+    # - classical
+    #- correspondence
   modes:                     # Game modes to accept.
     - casual                 # Unrated games.
-#   - rated                  # Rated games - must comment if the engine doesn't try to win.
+    - rated                  # Rated games - must comment if the engine doesn't try to win.
