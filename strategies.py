@@ -167,16 +167,20 @@ class Anarchy(ExampleEngine):
             if board.san(move) == "Ke2" or board.san(move) == "Ke7" or board.san(move) == "Kxe2" or board.san(move) == "Kxe7":
                 return move
 
-            # play move
-            board.push(move)
-            # evaluate position
-            evaluation = self.evaluate(board, searchTime)
-            # if the evaluation is better than the current position use it as the new best move
-            if bestEvaluation is None or bestEvaluation > evaluation:
-                bestEvaluation = evaluation
-                bestMove = move
+            # never play rook a4
+            if not (board.san(move)[0] == "R" and board.san(move)[-2:] == "a4"):
 
-            board.pop()
+                # play move
+                board.push(move)
+                # evaluate position
+                evaluation = self.evaluate(board, searchTime)
+                # if the evaluation is better than the current position use it as the new best move
+                if bestEvaluation is None or bestEvaluation > evaluation:
+                    bestEvaluation = evaluation
+                    bestMove = move
+                board.pop()
+            else:
+                print("I saw Ra4, I just didn't like it")
 
         return bestMove
 
